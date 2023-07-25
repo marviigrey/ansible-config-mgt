@@ -1,0 +1,34 @@
+---
+- name: install apache
+  become: true
+  yum:
+    name: "httpd"
+    state: present
+- name: installgit
+  become: true
+  yum: 
+  name: "git"
+  state: present
+- name: clone a repo
+  become: true
+  git:
+    repo: https://github.com/marviigrey/tooling.git
+    dest: /var/www/html
+    force: yes
+
+- name: copy html content
+  become: true
+  command: cp -r /var/www/html/html/ /var/www/
+
+- name: start service, if not started
+  become: true
+  service: 
+    name: httpd
+    state: started
+
+- name: remove file
+  become: true
+  file:
+    path: /var/www/html/html
+    state: absent
+# tasks file for webserver
