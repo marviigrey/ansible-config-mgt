@@ -7,8 +7,8 @@
 - name: installgit
   become: true
   yum: 
-  name: "git"
-  state: present
+   name: "git"
+   state: present
 - name: clone a repo
   become: true
   git:
